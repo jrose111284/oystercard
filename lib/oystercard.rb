@@ -10,4 +10,8 @@ class Oystercard
 		fail "The limit is 90" if money + amount > 90
 		@money += amount
 	end
+
+	def deduct(amount)
+		@money -= amount
+	end
 end
