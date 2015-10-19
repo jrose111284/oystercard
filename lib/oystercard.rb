@@ -1,5 +1,5 @@
 class Oystercard
-	attr_reader :money
+	attr_reader :money, :in_journey
 	LIMIT = 91
 
 	def initialize
@@ -13,5 +13,9 @@ class Oystercard
 
 	def deduct(amount)
 		@money -= amount
+	end
+
+	def touch_in
+		#in_journey? = true
 	end
 end

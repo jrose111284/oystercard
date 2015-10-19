@@ -22,8 +22,17 @@ describe Oystercard do
 	describe '#deduct' do		
 		it {is_expected.to respond_to(:deduct).with(1).argument }
 
-		it 'deduct money'
+		it 'deduct money' do
 			expect{subject.deduct 1 }.to change{ subject.money }.by -1
 		end
+	end
+
+	describe '#touch_in' do
+		it {is_expected.to respond_to (:touch_in)}
+
+		# it 'responds to touch in' do
+		# 	allow(subject).to receive(:touch_in).and_return(true)
+		# 	#expect{subject.touch_in}.to respond_to (:in_journey?)
+		# end
 	end
 end
