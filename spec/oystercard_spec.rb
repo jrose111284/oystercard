@@ -56,10 +56,15 @@ describe Oystercard do
     end
   end
   describe '#touch_out' do
+    before(:each) do
+      subject.top_up(1.00)
+      subject.touch_in(entry_station)
+      subject.touch_out(exit_station)
+    end
+
     it { is_expected.to respond_to(:touch_out).with(1).argument}
 
     it 'changes the in journey status to false when touched out' do
-      subject.touch_out(exit_station)
       expect(subject.in_journey?).to be false
       #expect(subject).not_to be_in_journey
     end
@@ -68,16 +73,10 @@ describe Oystercard do
       expect {subject.touch_out(exit_station)}.to change{subject.money}.by -described_class::MINIMUM_FARE
     end
     it 'resets the station info after touching out' do
-      subject.top_up(1.00)
-      subject.touch_in(entry_station)
-      subject.touch_out(exit_station)
       expect(subject.entry_station).to be nil
     end
 
     it 'stores the exit station when touching out' do
-      subject.top_up(1.00)
-      subject.touch_in(entry_station)
-      subject.touch_out(exit_station)
       expect(subject.exit_station).to be exit_station
     end
   end
