@@ -1,7 +1,8 @@
 require 'oystercard'
 
 describe Oystercard do
-  let(:station) {double :station }
+  let(:entry_station) {double :station }
+  let(:exit_station) {double :station}
   describe '#initialize' do
     it 'has a default of 0' do
       expect(subject.money).to eq(0)
@@ -22,10 +23,10 @@ describe Oystercard do
   end
 
   describe '#station' do
-    it { is_expected.to respond_to(:station) }
+    it { is_expected.to respond_to(:entry_station) }
 
     it 'a new card has no station' do
-      expect(subject.station).to be nil
+      expect(subject.entry_station).to be nil
     end
   end
 
@@ -38,38 +39,45 @@ describe Oystercard do
 
     it 'changes the in journey status to true when touched in' do
       subject.top_up(10)
-      subject.touch_in(station)
+      subject.touch_in(entry_station)
       expect(subject.in_journey?).to be true
       #expect(subject).to be_in_journey #this is the same than line above
     end
     it 'Raises an error when touching in with a balance lower than minimum' do
       subject.top_up(0.99)
-      expect { subject.touch_in(station) }.to raise_error "Below Minimum Balance!"
+      expect { subject.touch_in(entry_station) }.to raise_error "Below Minimum Balance!"
     end
 
     it 'stores the station when touching in' do
       subject.top_up(1.00)
-      subject.touch_in(station)
-      expect(subject.station).to eq station
+      subject.touch_in(entry_station)
+      expect(subject.entry_station).to eq entry_station
     end
   end
   describe '#touch_out' do
-    it { is_expected.to respond_to(:touch_out)}
+    it { is_expected.to respond_to(:touch_out).with(1).argument}
 
     it 'changes the in journey status to false when touched out' do
-      subject.touch_out
+      subject.touch_out(exit_station)
       expect(subject.in_journey?).to be false
       #expect(subject).not_to be_in_journey
     end
 
     it 'update touch_out method to reduce the balance by minimum fare' do
-      expect {subject.touch_out}.to change{subject.money}.by -described_class::MINIMUM_FARE
+      expect {subject.touch_out(exit_station)}.to change{subject.money}.by -described_class::MINIMUM_FARE
     end
     it 'resets the station info after touching out' do
       subject.top_up(1.00)
-      subject.touch_in(station)
-      subject.touch_out
-      expect(subject.station).to be nil
+      subject.touch_in(entry_station)
+      subject.touch_out(exit_station)
+      expect(subject.entry_station).to be nil
+    end
+
+    it 'stores the exit station when touching out' do
+      subject.top_up(1.00)
+      subject.touch_in(entry_station)
+      subject.touch_out(exit_station)
+      expect(subject.exit_station).to be exit_station
     end
   end
 end
