@@ -3,25 +3,25 @@ class Oystercard
   LIMIT = 90.00
 
   def initialize
-	@money = 0
+    @money = 0
     @in_journey = false
   end
-  
+
   def top_up(amount)
-	fail "The limit is 90" if money + amount > LIMIT
-	@money += amount
+    fail "The limit is 90" if money + amount > LIMIT
+    @money += amount
   end
 
   def deduct(amount)
-	@money -= amount
+    @money -= amount
   end
 
   def touch_in
-	@in_journey = true
+    @in_journey = true
   end
 
   def touch_out
-  	@in_journey = false
+    @in_journey = false
   end
 
   def in_journey?

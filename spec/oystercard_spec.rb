@@ -40,6 +40,10 @@ describe Oystercard do
       expect(subject.in_journey?).to be true
       #expect(subject).to be_in_journey #this is the same than line above
     end
+    it 'Raises an error when touching in with a balance lower than minimum' do
+      subject.top_up(0.99)
+      expect { subject.touch_in }.to raise_error "Below Minimum Balance!"
+    end
 
   end
   describe '#touch_out' do
