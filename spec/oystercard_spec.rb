@@ -28,11 +28,14 @@ describe Oystercard do
 	end
 
 	describe '#touch_in' do
-    it {is_expected.to respond_to (:in_journey?) }
+    	it {is_expected.to respond_to (:in_journey?) }
 		it {is_expected.to respond_to (:touch_in)}
+		it 'a new oystercard is not an journey' do
+			expect(subject.in_journey?).to be false
+		end
 
-    it 'changes the in journey status to true when touched in' do
-
+    	it 'changes the in journey status to true when touched in' do
+    		#expect {subject.touch_in}
 		end
 	end
 end
