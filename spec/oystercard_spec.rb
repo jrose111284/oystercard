@@ -1,6 +1,7 @@
 require 'oystercard'
 
 describe Oystercard do
+  let(:station) {double :station }
   describe '#initialize' do
     it 'has a default of 0' do
       expect(subject.money).to eq(0)
@@ -20,11 +21,11 @@ describe Oystercard do
     end
   end
 
-  describe '#deduct' do
-    it {is_expected.to respond_to(:deduct).with(1).argument }
+  describe '#station' do
+    it { is_expected.to respond_to(:station) }
 
-    it 'deduct money' do
-      expect{subject.deduct 1.00 }.to change{ subject.money }.by -1.00
+    it 'a new card has no station' do
+      expect(subject.station).to be nil
     end
   end
 
@@ -45,7 +46,6 @@ describe Oystercard do
       subject.top_up(0.99)
       expect { subject.touch_in }.to raise_error "Below Minimum Balance!"
     end
-
   end
   describe '#touch_out' do
     it { is_expected.to respond_to(:touch_out)}
@@ -57,7 +57,7 @@ describe Oystercard do
     end
 
     it 'update touch_out method to reduce the balance by minimum fare' do
-      expect {subject.touch_out}.to change{subject.money}.by described_class::FARE_AMOUNT
+      expect {subject.touch_out}.to change{subject.money}.by -described_class::MINIMUM_FARE
     end
   end
 end
