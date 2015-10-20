@@ -1,6 +1,7 @@
 class Oystercard
   attr_reader :money, :in_journey
   LIMIT = 90.00
+  MINIMUM = 1.00
 
   def initialize
     @money = 0
@@ -17,6 +18,7 @@ class Oystercard
   end
 
   def touch_in
+  	fail "Below Minimum Balance!" if money < MINIMUM
     @in_journey = true
   end
 

@@ -36,6 +36,7 @@ describe Oystercard do
     end
 
     it 'changes the in journey status to true when touched in' do
+      subject.top_up(10)
       subject.touch_in
       expect(subject.in_journey?).to be true
       #expect(subject).to be_in_journey #this is the same than line above
@@ -53,6 +54,10 @@ describe Oystercard do
       subject.touch_out
       expect(subject.in_journey?).to be false
       #expect(subject).not_to be_in_journey
+    end
+
+    it 'update touch_out method to reduce the balance by minimum fare' do
+      expect {subject.touch_out}.to change{subject.money}.by described_class::FARE_AMOUNT
     end
   end
 end
