@@ -80,4 +80,10 @@ describe Oystercard do
       expect(subject.exit_station).to be exit_station
     end
   end
+  describe 'journey time' do
+  	it {is_expected.to respond_to(:journeys)}
+  	it 'a new oystercard has an empty journey log' do
+  		expect(subject.journeys).to be empty?
+  	end
+  end
 end
