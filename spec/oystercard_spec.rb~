@@ -64,7 +64,7 @@ describe Oystercard do
     end
 
     it 'update touch_out method to reduce the balance by minimum fare' do
-      expect {subject.touch_out}.to change{subject.money}.by -described_class::MINIMUM_FARE
+      expect {subject.touch_out(exit_station)}.to change{subject.money}.by -described_class::MINIMUM_FARE
     end
     it 'resets the station info after touching out' do
       subject.top_up(1.00)
@@ -78,6 +78,12 @@ describe Oystercard do
       subject.touch_in(entry_station)
       subject.touch_out(exit_station)
       expect(subject.exit_station).to be exit_station
+    end
+  end
+  describe 'journey time' do
+    it {is_expected.to respond_to(:journeys)}
+    it 'a new oystercard has an empty journey log' do
+      expect(subject.journeys).to be_empty
     end
   end
 end

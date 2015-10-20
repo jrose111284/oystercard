@@ -3,6 +3,7 @@ require 'oystercard'
 describe Oystercard do
   let(:entry_station) {double :station }
   let(:exit_station) {double :station}
+  let(:journey) {{ entry_station: entry_station, exit_station: exit_station }}
   describe '#initialize' do
     it 'has a default of 0' do
       expect(subject.money).to eq(0)
@@ -81,9 +82,15 @@ describe Oystercard do
     end
   end
   describe 'journey time' do
-  	it {is_expected.to respond_to(:journeys)}
-  	it 'a new oystercard has an empty journey log' do
-  		expect(subject.journeys).to be empty?
-  	end
+    it {is_expected.to respond_to(:journeys)}
+    it 'a new oystercard has an empty journey log' do
+      expect(subject.journeys).to be_empty
+    end
+    it 'Records a journey after touching in and touching out' do
+      subject.top_up(1.00)
+      subject.touch_in(entry_station)
+      subject.touch_out(exit_station)
+      expect(subject.journeys).to include journey
+    end
   end
 end
