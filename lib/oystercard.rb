@@ -14,8 +14,9 @@ class Oystercard
     @money += amount
   end
 
-  def touch_in
+  def touch_in(station)
     fail "Below Minimum Balance!" if money < MINIMUM_FARE
+    @station = station
     @in_journey = true
 
   end
@@ -30,10 +31,10 @@ class Oystercard
   end
 
   def station
-  	@station
+    @station
   end
 
-  
+
   private
 
   def deduct(amount)
