@@ -29,6 +29,9 @@ class Oystercard
     journey.exit(exit_station)
   end
 
+  def fare
+  	MINIMUM_FARE
+  end
 
 
   private

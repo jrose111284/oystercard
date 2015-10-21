@@ -55,7 +55,12 @@ describe Oystercard do
     it 'update touch_out method to reduce the balance by minimum fare' do
       expect {subject.touch_out(exit_station)}.to change{subject.money}.by -described_class::MINIMUM_FARE
     end
-
+  end
+  describe '#fare' do
+   it 'returns the minimum fare' do
+      subject.fare
+      expect(subject.fare).to eq described_class::MINIMUM_FARE
+   end
   end
 
 
