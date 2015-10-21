@@ -1,7 +1,8 @@
 require 'journey'
 
 describe Journey do
-  let(:station) {described_class.new(:station)}
+  #station = Station.new("waterloo",2)
+  let(:station) {double :station}
   let(:entry_station) {double :station}
   let(:exit_station) {double :station}
   let(:journey) {{ entry_station: entry_station, exit_station: exit_station }}
@@ -15,12 +16,8 @@ describe Journey do
     end
 
     it 'stores the station when touching in' do
-      expect(subject.entry_station).to eq station
-    end
-
-it 'stores the station when touching in' do
       subject.entry(station)
-      expect(subject.entry_station).to eq entry_station
+      expect(subject.entry_station).to eq station
     end
 
   end
