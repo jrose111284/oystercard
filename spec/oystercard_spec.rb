@@ -1,9 +1,10 @@
 require 'oystercard'
 
 describe Oystercard do
-  let(:entry_station) {double :station }
+  let(:entry_station) {double :station}
   let(:exit_station) {double :station}
   let(:journey) {{ entry_station: entry_station, exit_station: exit_station }}
+  
   describe '#initialize' do
     it 'has a default of 0' do
       expect(subject.money).to eq(0)
@@ -32,6 +33,7 @@ describe Oystercard do
   end
 
   describe '#touch_in' do
+
     it {is_expected.to respond_to(:in_journey?) }
     it {is_expected.to respond_to(:touch_in).with(1).argument}
     it 'a new oystercard is not an journey' do
@@ -39,6 +41,7 @@ describe Oystercard do
     end
 
     it 'changes the in journey status to true when touched in' do
+     
       subject.top_up(10)
       subject.touch_in(entry_station)
       expect(subject.in_journey?).to be true
@@ -80,7 +83,7 @@ describe Oystercard do
       expect(subject.exit_station).to be exit_station
     end
   end
-  describe 'journey' do
+  describe 'journeys' do
     it {is_expected.to respond_to(:journeys)}
     it 'a new oystercard has an empty journey log' do
       expect(subject.journeys).to be_empty
