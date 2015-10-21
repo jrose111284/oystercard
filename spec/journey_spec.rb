@@ -5,8 +5,8 @@ describe Journey do
   let(:station) {double :station}
   let(:entry_station) {double :station}
   let(:exit_station) {double :station}
-  let(:journey) {{ entry_station: entry_station, exit_station: exit_station }}
- # let(:station) { double :station, zone 1 }
+  let(:journey) {{entry_station: entry_station, exit_station: exit_station}}
+
 
   describe '#entry_station' do
     it {is_expected.to respond_to(:entry)}
@@ -32,6 +32,7 @@ describe Journey do
     end
 
     it 'stores the exit station when touching out' do
+      subject.exit(exit_station)
       expect(subject.exit_station).to be exit_station
     end
   end
@@ -44,13 +45,16 @@ describe Journey do
 
 
 
-  describe 'journeys' do
-    it {is_expected.to respond_to(:journeys)}
+  describe 'history' do
+    it {is_expected.to respond_to(:history)}
+
     it 'a new oystercard has an empty journey log' do
-      expect(subject.journeys).to be_empty
+      expect(subject.history).to be_empty
     end
-    it 'Records a journey after touching in and touching out' do
-      expect(subject.journeys).to include journey
+    it 'records a journey after touching in and touching out' do
+      subject.entry(entry_station)
+      subject.exit(exit_station)
+      expect(subject.history).to include journey
     end
   end
 end
