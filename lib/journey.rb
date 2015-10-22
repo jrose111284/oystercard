@@ -1,26 +1,28 @@
 require_relative 'station'
 
 class Journey
-  attr_reader :entry_station, :exit_station, :history
 
   def initialize
-    @entry_station = nil
-    @exit_station = nil
-    @history= []
+    @record = {}
   end
-
-  def entry(station)
-    @entry_station = station
-
+  def record
+    @record.dup
+  end
+  def entry_station
+    @record[:entry_station]
+  end
+  def exit_station
+    @record[:exit_station]
+  end
+  def entry(entry_station)
+    @record[:entry_station] = entry_station
   end
 
   def exit(exit_station)
-    @exit_station = exit_station
-    @history << {entry_station: entry_station, exit_station: exit_station}
-    @entry_station = nil
+    @record[:exit_station] = exit_station
   end
 
-  def state?
-    @entry_station != nil
+  def in_journey?
+     @record[:entry_station] != nil
   end
 end

@@ -9,24 +9,32 @@ describe Journey do
 
 
   describe '#entry_station' do
-    it {is_expected.to respond_to(:entry)}
+    it { is_expected.to respond_to(:entry_station) }
 
-     it 'a new card has no station' do
+    it 'a new journey has entry station' do
       expect(subject.entry_station).to be nil
     end
+  end
+
+  describe '#exit_station' do
+    it { is_expected.to respond_to(:exit_station) }
+
+    it 'a new card has no exit station' do
+      expect(subject.exit_station).to be nil
+    end
+  end
+
+  describe '#entry' do
+    it {is_expected.to respond_to(:entry)}
 
     it 'stores the station when touching in' do
       subject.entry(station)
       expect(subject.entry_station).to eq station
     end
-
   end
 
-  describe '#exit_station' do
-
+  describe '#exit' do
     it {is_expected.to respond_to(:exit)}
-
-
     it 'resets the station info after touching out' do
       expect(subject.entry_station).to be nil
     end
@@ -37,24 +45,10 @@ describe Journey do
     end
   end
 
-  it 'a new oystercard is not an journey' do
-      expect(subject.state?).to be false
-    end
-
-  it {is_expected.to respond_to(:state?) }
-
-
-
-  describe 'history' do
-    it {is_expected.to respond_to(:history)}
-
-    it 'a new oystercard has an empty journey log' do
-      expect(subject.history).to be_empty
-    end
-    it 'records a journey after touching in and touching out' do
-      subject.entry(entry_station)
-      subject.exit(exit_station)
-      expect(subject.history).to include journey
+  describe '#in_journey?' do
+    it {is_expected.to respond_to(:in_journey?) }
+    it 'a new journey is not a journey' do
+      expect(subject.in_journey?).to be false
     end
   end
 end

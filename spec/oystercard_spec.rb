@@ -25,14 +25,6 @@ describe Oystercard do
     end
   end
 
-  describe '#station' do
-    it { is_expected.to respond_to(:entry_station) }
-
-    it 'a new card has no station' do
-      expect(subject.entry_station).to be nil
-    end
-  end
-
   describe '#touch_in' do
 
     it {is_expected.to respond_to(:touch_in).with(1).argument}
@@ -57,11 +49,9 @@ describe Oystercard do
     end
   end
   describe '#fare' do
-   it 'returns the minimum fare' do
+    it 'returns the minimum fare' do
       subject.fare
       expect(subject.fare).to eq described_class::MINIMUM_FARE
-   end
+    end
   end
-
-
 end
