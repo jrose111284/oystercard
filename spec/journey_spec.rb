@@ -1,12 +1,17 @@
 require 'journey'
 
 describe Journey do
-  #station = Station.new("waterloo",2)
-  let(:station) {double :station}
   let(:entry_station) {double :station}
   let(:exit_station) {double :station}
   let(:journey) {{entry_station: entry_station, exit_station: exit_station}}
 
+  describe '#initiliazation' do
+
+    it 'returns the penaly fare' do
+      subject.fare
+      expect(subject.fare).to eq described_class::PENALTY_FARE
+    end
+  end
 
   describe '#entry_station' do
     it { is_expected.to respond_to(:entry_station) }
@@ -28,8 +33,8 @@ describe Journey do
     it {is_expected.to respond_to(:entry)}
 
     it 'stores the station when touching in' do
-      subject.entry(station)
-      expect(subject.entry_station).to eq station
+      subject.entry(entry_station)
+      expect(subject.entry_station).to eq entry_station
     end
   end
 
@@ -45,10 +50,19 @@ describe Journey do
     end
   end
 
+  describe '#fare' do
+    it 'returns a minimum fare when a journey is complete' do
+      subject.entry(entry_station)
+      subject.exit(exit_station)
+      expect(subject.fare).to eq described_class::MIN_FARE
+    end
+  end
+
   describe '#in_journey?' do
     it {is_expected.to respond_to(:in_journey?) }
     it 'a new journey is not a journey' do
       expect(subject.in_journey?).to be false
     end
   end
+
 end
