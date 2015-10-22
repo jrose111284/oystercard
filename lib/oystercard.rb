@@ -6,8 +6,8 @@ class Oystercard
   LIMIT = 90.00
   MINIMUM_FARE = 1.00
 
-  def initialize
-    @money = 0
+  def initialize(money=0)
+    @money = money
     @entry_station = nil
     @exit_station = nil
     @journey = Journey.new
