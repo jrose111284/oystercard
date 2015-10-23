@@ -1,4 +1,5 @@
 require_relative 'station'
+require_relative 'journey_log'
 
 class Journey
   attr_reader :fare
