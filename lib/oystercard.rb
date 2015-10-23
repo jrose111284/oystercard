@@ -2,6 +2,7 @@ require_relative 'journey'
 
 class Oystercard
   attr_reader :money
+
   LIMIT = 90.00
   MINIMUM_BALANCE = 1
 
@@ -46,5 +47,4 @@ class Oystercard
   def deduct
     @money -= @journey.fare
   end
-
 end

@@ -2,8 +2,8 @@ require 'oystercard'
 
 describe Oystercard do
 
-  let(:entry_station) {double :station}
-  let(:exit_station) {double :station}
+  let(:entry_station) { double :station }
+  let(:exit_station) { double :station }
   let(:history_with_1_complete) {[{ entry_station: entry_station, exit_station: exit_station }]}
   let(:incomplete_journey) {{ entry_station: entry_station }}
   let(:journey) {{ entry_station: entry_station, exit_station: exit_station }}
@@ -48,7 +48,7 @@ describe Oystercard do
       expect {subject.touch_in(entry_station)}.to change{subject.money}.by -(Journey::PENALTY_FARE)
     end
 
-    it 'records the start of a journey in a history after touching in' do |variable|
+    it 'records the start of a journey in a history after touching in' do
       subject.top_up(10.00)
       subject.touch_in(entry_station)
       expect(subject.history).to include incomplete_journey

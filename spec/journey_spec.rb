@@ -6,7 +6,6 @@ describe Journey do
   let(:journey) {{entry_station: entry_station, exit_station: exit_station}}
 
   describe '#initiliazation' do
-
     it 'returns the penaly fare' do
       subject.fare
       expect(subject.fare).to eq described_class::PENALTY_FARE
@@ -40,6 +39,7 @@ describe Journey do
 
   describe '#exit' do
     it {is_expected.to respond_to(:exit)}
+
     it 'resets the station info after touching out' do
       expect(subject.entry_station).to be nil
     end
@@ -60,9 +60,9 @@ describe Journey do
 
   describe '#in_journey?' do
     it {is_expected.to respond_to(:in_journey?) }
+
     it 'a new journey is not a journey' do
       expect(subject.in_journey?).to be false
     end
   end
-
 end
